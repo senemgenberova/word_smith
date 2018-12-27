@@ -23,29 +23,9 @@
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
-    <style>
-    	textarea{
-			resize: none;
-		}
-
-        #deleteAction{
-            float: right;
-        }
-
-        .bg_white{
-            background: white;
-        }
-
-		@yield('css')
-
-    </style>
-
 </head>
 
 <body>
-
-
-    <!-- Left Panel -->
 
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
@@ -61,18 +41,14 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <h3 class="menu-title">Tables</h3><!-- /.menu-title -->
-                    <li>
-                        <a href="{{route('slider_index')}}"> <i class="menu-icon fa fa-table"></i>Slider</a>
-                    </li>
-                    <li>
-                        <a href="{{route('cat_index')}}"> <i class="menu-icon fa fa-table"></i>Category</a>
-                    </li>
-                    <li>
-                        <a href="{{route('post_index')}}"> <i class="menu-icon fa fa-table"></i>Post</a>
-                    </li>
-                    <li>
-                        <a href="{{route('contact_index')}}"> <i class="menu-icon fa fa-table"></i>Contact</a>
-                    </li>
+                    @foreach($tableNames as $t )
+                        <li class="@include('backLayout.active',['check' => $t])">
+                            <a href="{{route($t . '_index')}}" >
+                                <i class="menu-icon fa fa-table "></i>{{$t}}
+                            </a>
+                        </li>
+                    @endforeach
+                    
 
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -136,8 +112,6 @@
         </div> <!-- .content -->
     </div><!-- /#right-panel -->
 
-    <!-- Right Panel -->
-
     <script src="{{asset('vendors/jquery/dist/jquery.min.js')}}"></script>
     <script src="{{asset('vendors/popper.js/dist/umd/popper.min.js')}}"></script>
     <script src="{{asset('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
@@ -160,9 +134,9 @@
 	<script>
         jQuery(document).ready(function($){
             $('#btnDelete').click(function(e){
-                if(confirm('Are you sure to delete this post?')){
+                if(confirm('Are you sure to delete?')){
                     $('#deleteAction').submit();
-                    console.log('post deleted');
+                    console.log('deleted');
                 }
                 else{
                     //cancel deleting

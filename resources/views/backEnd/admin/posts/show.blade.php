@@ -1,6 +1,6 @@
 @extends('backLayout.app')
 @section('page_title')
-Post <i class="fa fa-angle-double-right"></i> Data
+@include('backLayout.data',['tableName' => 'post','action' => $actions['show']] )
 @stop
 
 @section('content')

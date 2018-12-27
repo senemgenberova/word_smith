@@ -1,11 +1,22 @@
 @extends('backLayout.app')
 @section('page_title')
-Category <i class="fa fa-angle-double-right"></i> Edit
+@include('backLayout.data',['tableName' => 'category','action' => $actions['edit']] )
 @stop
 
 @section('content')
 
-    <form method="POST" action="{{ route('update_cat',$category) }}" class="form-horizontal">
+<div class="container">
+    @if(Session::has('fail'))
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="alert alert-danger">
+                  {{ Session::get('fail') }}
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <form method="POST" action="{{ route('update_category',$category) }}" class="form-horizontal">
         {{ csrf_field()}}
 
         <div class="form-group ">
@@ -37,5 +48,6 @@ Category <i class="fa fa-angle-double-right"></i> Edit
             @endforeach
         </ul>
     @endif
+</div>
 
 @endsection

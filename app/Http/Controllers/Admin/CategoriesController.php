@@ -41,18 +41,28 @@ class CategoriesController extends Controller
      * @return Response
      */
     public function store(Request $request)
-    {
+    {       
         $this->validate($request, ['category_name' => 'required' ]);
 
-        Category::create([
-            'category_name' => request('category_name'),
-            'category_slug' => str_slug(request('category_name'),'-')
-        ]);
+        foreach (Category::all() as $c) {
+            if($c->category_name == strtolower(request('category_name'))){
+                Session::flash('fail', 'This category already exists!');
 
-        Session::flash('message', 'Category added!');
-        Session::flash('status', 'success');
+                return redirect()->back();
+            }
+        }
 
-        return redirect()->route('cat_index');
+        if(!Session::has('fail')){
+            Category::create([
+                'category_name' => strtolower(request('category_name')),
+                'category_slug' => str_slug(request('category_name'),'-')
+            ]);
+
+            Session::flash('message', 'Category added!');
+            Session::flash('status', 'success');
+        }
+
+        return redirect()->route('category_index');
     }
 
     /**
@@ -94,16 +104,26 @@ class CategoriesController extends Controller
     {
         $this->validate($request, ['category_name' => 'required', ]);
 
-        // $category = Category::findOrFail($id);
-        $category->update([
-            'category_name' => request('category_name'),
-            'category_slug' =>str_slug(request('category_name'),'-')
-        ]);
+        foreach (Category::all() as $c) {
+            if($c->category_name == strtolower(request('category_name'))){
+                Session::flash('fail', 'This category already exists!');
 
-        Session::flash('message', 'Category updated!');
-        Session::flash('status', 'success');
+                return redirect()->back();
+            }
+        }
 
-        return redirect()->route('cat_index');
+        if(!Session::has('fail')){
+            $category->update([
+                'category_name' => request('category_name'),
+                'category_slug' =>str_slug(request('category_name'),'-')
+            ]);
+
+            Session::flash('message', 'Category updated!');
+            Session::flash('status', 'success'); 
+        }
+
+
+        return redirect()->route('category_index');
     }
 
     /**
@@ -122,7 +142,7 @@ class CategoriesController extends Controller
         Session::flash('message', 'Category deleted!');
         Session::flash('status', 'success');
 
-        return redirect()->route('cat_index');
+        return redirect()->back();
     }
 
 }

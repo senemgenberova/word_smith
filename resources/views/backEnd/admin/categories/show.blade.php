@@ -1,6 +1,6 @@
 @extends('backLayout.app')
 @section('page_title')
-Category <i class="fa fa-angle-double-right"></i> Data
+@include('backLayout.data',['tableName' => 'category','action' => $actions['show']] )
 @stop
 
 @section('content')

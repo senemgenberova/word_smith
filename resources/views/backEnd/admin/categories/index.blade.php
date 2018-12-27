@@ -14,7 +14,7 @@ Tables <i class="fa fa-angle-double-right"></i> Category
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <a href="{{route('cat_create')}}" class="btn btn-primary colorWhite btn_add"> <i class="fa fa-plus"></i> Add</a>
+                    <a href="{{route('category_create')}}" class="btn btn-primary colorWhite btn_add"> <i class="fa fa-plus"></i> Add</a>
                 </div>
             </div>
         </div>
@@ -30,12 +30,14 @@ Tables <i class="fa fa-angle-double-right"></i> Category
                     @foreach($categories as $category)
                         <tr>
                             <td>
-                                <a href="{{ route('show_cat', $category) }}">{{ $category->category_name }} </a>
+                                {{ $category->category_name }}
                             </td>
-                            <td>
-                                <a class="btn btn-primary colorWhite btn_style" href="{{ route('edit_cat',$category) }}"><i class="fa fa-pencil"></i> Edit</a>
+                            <td class="d-flex">
+                                <a class="btn btn-primary colorWhite btn_style" href="{{ route('show_category',$category) }}"><i class="fa fa-eye"></i> Show</a>
 
-                                <form action="{{route('delete_cat',$category)}}" method="post" id="deleteAction">
+                                <a class="btn btn-warning colorWhite btn_style" href="{{ route('edit_category',$category) }}"><i class="fa fa-pencil"></i> Edit</a>
+
+                                <form action="{{route('delete_category',$category)}}" method="post" id="deleteAction">
                                     {{ csrf_field() }}
                                     <button type="submit" class="btn btn-danger" id="btnDelete">
                                         <i class="fa fa-exclamation-circle"></i> Delete

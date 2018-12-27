@@ -1,6 +1,6 @@
 @extends('backLayout.app')
 @section('page_title')
-Contact <i class="fa fa-angle-double-right"></i> Edit 
+@include('backLayout.data',['tableName' => 'contact','action' => $actions['edit']] )
 @stop
 
 @section('content')

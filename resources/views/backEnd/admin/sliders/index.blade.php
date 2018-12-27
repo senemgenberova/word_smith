@@ -25,6 +25,7 @@ Tables <i class="fa fa-angle-double-right"></i> Slider
                         <th>Title</th>
                         <th>Image</th>
                         <th>In slide</th>
+                        <th>Link</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -32,14 +33,19 @@ Tables <i class="fa fa-angle-double-right"></i> Slider
                     @foreach($sliders as $slider)
                         <tr>
                             <td>
-                                <a href="{{ route('show_slider', $slider) }}">{{ substr($slider->title,0,15) }} ..</a>
+                                {{ strlen($slider->title) > 20 ? substr($slider->title,0,20) . '..' : $slider->title  }}
                             </td>
                             <td>
                                 <img src="{{ asset('/upload/slider/' . $slider->image  ) }}" alt="{{substr($slider->title,0,15)}}" width="150">
                             </td>
                             <td>{{($slider->inSlide == 1) ? 'YES' : 'NO'}}</td>
                             <td>
-                                <a class="btn btn-primary colorWhite btn_style" href="{{ route('edit_slider',$slider) }}"><i class="fa fa-pencil"></i> Edit</a>
+                                <a href="{{ $slider->link }}">{{ parse_url($slider->link,PHP_URL_HOST) }}</a>
+                            </td>
+                            <td class="d-flex">
+                                <a class="btn btn-primary colorWhite btn_style" href="{{ route('show_slider',$slider) }}"><i class="fa fa-eye"></i> Show</a>
+
+                                <a class="btn btn-warning colorWhite btn_style" href="{{ route('edit_slider',$slider) }}"><i class="fa fa-pencil"></i> Edit</a>
 
                                 <form action="{{route('delete_slider',$slider)}}" method="post" id="deleteAction">
                                     {{ csrf_field() }}

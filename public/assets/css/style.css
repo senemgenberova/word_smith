@@ -1069,7 +1069,9 @@ aside.left-panel {
     float: none;
     position: relative; }
     .navbar .navbar-nav li {
-      width: 100%; }
+      width: 100%;
+      text-transform: uppercase;
+      }
       .navbar .navbar-nav li.active .menu-icon,
       .navbar .navbar-nav li:hover .toggle_nav_button:before,
       .navbar .navbar-nav li .toggle_nav_button.nav-open:before {
@@ -1078,14 +1080,15 @@ aside.left-panel {
         display: none; }
       .navbar .navbar-nav li > a {
         background: none !important;
-        color: #c8c9ce !important;
+        color: #8b939b;
         display: inline-block;
         font-family: 'Open Sans';
         font-size: 14px;
         line-height: 30px;
         padding: 10px 0;
         position: relative;
-        width: 100%; }
+        width: 100%;
+        }
         .navbar .navbar-nav li > a:hover,
         .navbar .navbar-nav li > a:hover .menu-icon {
           color: #fff !important; }
@@ -1158,7 +1161,8 @@ aside.left-panel {
 .navbar .navbar-nav > .active > a,
 .navbar .navbar-nav > .active > a:focus,
 .navbar .navbar-nav > .active > a:hover {
-  color: #d7d9e3 !important; }
+  color: white;
+  }
 
 .navbar-nav li span.count {
   background: #a9d86e;
@@ -2464,6 +2468,7 @@ header .form-inline {
         .right-panel .content #bootstrap-data-table_wrapper .table th {
           padding: 5px; } }
 
+/*my custom css*/
 .user-area h1{
       font-size: 20px;
       margin-top: 10px;
@@ -2475,4 +2480,37 @@ header .form-inline {
 
 .btn_add{
   float: right;
+}
+
+.mb-20{
+	margin-bottom: 20px;
+}
+
+textarea{
+	resize: none;
+    text-align: justify;
+}
+
+table td {
+    text-align: justify;
+}
+
+table td:last-child>*{
+    margin-right: 10px;
+}
+
+.main-menu li{
+    text-transform: uppercase;
+}
+
+.bg_white{
+    background: white;
+}
+
+.active{
+    color: white !important;
+}
+
+.t-capitalize{
+	text-transform: capitalize;
 }

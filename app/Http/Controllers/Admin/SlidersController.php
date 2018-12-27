@@ -9,7 +9,6 @@ use App\Slider;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
-use File;
 
 class SlidersController extends Controller
 {
@@ -46,7 +45,8 @@ class SlidersController extends Controller
         $this->validate(request(), [
             'title' => 'required|max:255', 
             'image' => 'required|image|mimes:png,jpeg,jpg', 
-            'inSlide' => 'required', 
+            'inSlide' => 'required',
+            'link' => 'required' 
         ]);
 
         if(request()->hasFile('image')){
@@ -57,9 +57,10 @@ class SlidersController extends Controller
         }
 
         Slider::create([
-            'title' => strtoupper(request('title')), 
+            'title' => request('title'), 
             'image' => $image_name, 
-            'inSlide' => request('inSlide') 
+            'inSlide' => request('inSlide'),
+            'link' => request('link') 
         ]);
 
         Session::flash('message', 'Slider added!');
@@ -109,13 +110,14 @@ class SlidersController extends Controller
             'title' => 'required|max:255', 
             'image' => 'image|mimes:png,jpeg,jpg', 
             'inSlide' => 'required', 
+            'link' => 'required'
         ]);
 
         if(request()->hasFile('image')){
             $path = public_path() . '\upload\slider\\'; 
             $image_name = now()->toDateString() .'_'. request('image')->getClientOriginalName();
 
-            File::delete(asset('/upload/slider/' . $slider->image));
+            \File::delete($path . $slider->image);
             
             request('image')->move($path,$image_name);
         }
@@ -128,6 +130,7 @@ class SlidersController extends Controller
             'title' => request('title'), 
             'image' => $image_name, 
             'inSlide' => request('inSlide'),  
+            'link' => request('link')
         ]);
 
         Session::flash('message', 'Slider updated!');
@@ -148,7 +151,7 @@ class SlidersController extends Controller
         // $slider = Slider::findOrFail($id);
 
         $slider->delete();
-        \File::delete(public_path() . '\upload\post\\' . $slider->image);
+        \File::delete(public_path() . '\upload\slider\\' . $slider->image);
 
         Session::flash('message', 'Slider deleted!');
         Session::flash('status', 'success');

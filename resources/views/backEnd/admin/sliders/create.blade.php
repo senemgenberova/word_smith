@@ -1,6 +1,6 @@
 @extends('backLayout.app')
 @section('page_title')
-Slider <i class="fa fa-angle-double-right"></i> Create
+@include('backLayout.data',['tableName' => 'slider','action' => $actions['create']] )
 @stop
 
 @section('content')
@@ -17,6 +17,18 @@ Slider <i class="fa fa-angle-double-right"></i> Create
                     </div>
                     <div class="col-sm-5">
                         <input class="form-control" name="title" type="text" id="title" required>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="form-group ">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label for="link" class="control-label">Link: </label>
+                        
+                    </div>
+                    <div class="col-sm-5">
+                        <input class="form-control" name="link" type="url" id="link" required>
                     </div>
                 </div>
                 

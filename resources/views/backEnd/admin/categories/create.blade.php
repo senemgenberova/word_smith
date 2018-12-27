@@ -1,11 +1,24 @@
 @extends('backLayout.app')
 @section('page_title')
-Category <i class="fa fa-angle-double-right"></i> Create
+@include('backLayout.data',['tableName' => 'category','action' => $actions['create']] )
 @stop
 
 @section('content')
+
     <div class="container">
-        <form method="POST" action="{{ route('cat_store') }}" class="form-horizontal">
+    
+        @if(Session::has('fail'))
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="alert alert-danger">
+                      {{ Session::get('fail') }}
+                    </div>
+                </div>
+            </div>
+        @endif
+
+
+        <form method="POST" action="{{ route('category_store') }}" class="form-horizontal">
             {{ csrf_field()}}
 
             <div class="form-group ">

@@ -1,6 +1,6 @@
 @extends('backLayout.app')
 @section('page_title')
-Slider <i class="fa fa-angle-double-right"></i> Edit 
+@include('backLayout.data',['tableName' => 'slider','action' => $actions['edit']] )
 @stop
 
 @section('css')
@@ -27,13 +27,28 @@ Slider <i class="fa fa-angle-double-right"></i> Edit
                 </div>
                 
             </div>
+
+            <div class="form-group ">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label for="link" class="control-label">Link: </label>
+                        
+                    </div>
+                    <div class="col-sm-5">
+                        <input class="form-control" name="link" type="text" id="link" required value="{{$slider->link}}">
+                    </div>
+                </div>
+                
+            </div>
+
             <div class="form-group ">
                 <div class="row">
                     <div class="col-sm-1">
                         <label for="image" class="control-label">Image: </label>
                     </div>
                     <div class="col-sm-5">
-                        <img src="{{ asset('/upload/slider/' . $slider->image)}}" class="slider_image" alt="{{ $slider->title }}" width="250"> 
+                        <img src="{{ asset('/upload/slider/' . $slider->image)}}" class="slider_image mb-20" alt="{{ $slider->title }}" width="250"> 
+
                         <input  name="image" type="file" id="image" accept="image/*">                   
                     </div>
                 </div>
@@ -45,13 +60,13 @@ Slider <i class="fa fa-angle-double-right"></i> Edit
                     </div>
                     <div class="col-sm-5">
                         <div class="checkbox">
-                            @if($slider->inSlide == 1)
-                                <label><input name="inSlide" type="radio" value="1" id="inSlide" checked> Yes</label>
-                                <label><input name="inSlide" type="radio" value="0" id="inSlide" > No</label>
-                            @else
-                                <label><input name="inSlide" type="radio" value="1" id="inSlide" > Yes</label>
-                                <label><input name="inSlide" type="radio" value="0" id="inSlide" checked> No</label>
-                            @endif
+                            <label>
+                                <input name="inSlide" type="radio" value="1" id="inSlide" {{ $slider->inSlide == 1 ? 'checked' : '' }}> Yes
+                            </label>
+
+                            <label>
+                                <input name="inSlide" type="radio" value="0" id="inSlide" {{ $slider->inSlide == 0 ? 'checked' : '' }}> No
+                            </label>
                             
                         </div>                  
                     </div>

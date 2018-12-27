@@ -6,10 +6,13 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Post;
+use App\Subscriber;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Session;
+use Session, Mail;
 use App\Category;
+
+use App\Mail\NewPostMail;
 
 class PostsController extends Controller
 {
@@ -61,17 +64,21 @@ class PostsController extends Controller
                 request('image')->move($path,$image);
             }
 
-            Post::create([
+
+            $post = Post::create([
                 'user_id' => auth()->id(),
                 'category_id' => request('category_id'), 
                 'title' => request('title'), 
                 'description' => request('description'), 
                 'image' => $image,
-                'post_slug' => str_slug(request('title'),'-') 
+                'post_slug' => $this->create_post_slug(request('title')),
+                'view_count' => 0
             ]);
 
             Session::flash('message', 'Post added!');
             Session::flash('status', 'success');
+
+            Mail::to(Subscriber::all())->send(new NewPostMail($post));
         }       
 
         return redirect()->route('post_index');
@@ -140,7 +147,7 @@ class PostsController extends Controller
                 'title' => request('title'), 
                 'description' => request('description'), 
                 'image' => $image,
-                'post_slug' => str_slug(request('title'),'-') 
+                'post_slug' => $this->create_post_slug(request('title')) 
             ]);
 
             Session::flash('message', 'Post updated!');
@@ -169,6 +176,19 @@ class PostsController extends Controller
         Session::flash('status', 'success');
 
         return redirect()->route('post_index');
+    }
+
+    public function create_post_slug($title){
+        $post_slug = str_slug($title,'-');
+            
+        $post_count = Post::where('post_slug', $post_slug)->count();
+
+        if($post_count != 0){
+            $post_count++;
+            $post_slug .= '-' . $post_count;
+        }
+
+        return $post_slug;
     }
 
 }

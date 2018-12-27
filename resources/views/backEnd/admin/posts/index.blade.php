@@ -34,7 +34,7 @@ Tables <i class="fa fa-angle-double-right"></i> Post
                     @foreach($posts as $post)
                         <tr>
                             <td>
-                                <a href="{{ route('show_post', $post) }}">{{ substr($post->title,0,15) }} ..</a>
+                                {{ strlen($post->title) > 20 ? substr($post->title,0,20) . '..' : $post->title  }}
                             </td>
                             <td>
                                 {{ $post->category->category_name}}
@@ -45,8 +45,10 @@ Tables <i class="fa fa-angle-double-right"></i> Post
                             <td>
                                 {{ $post->updated_at}}
                             </td>
-                            <td>
-                                <a class="btn btn-primary colorWhite btn_style" href="{{ route('edit_post',$post) }}"><i class="fa fa-pencil"></i> Edit</a>
+                            <td class="d-flex">
+                                <a class="btn btn-primary colorWhite btn_style" href="{{ route('show_post',$post) }}"><i class="fa fa-eye"></i> Show</a>
+
+                                <a class="btn btn-warning colorWhite btn_style" href="{{ route('edit_post',$post) }}"><i class="fa fa-pencil"></i> Edit</a>
 
                                 <form action="{{route('delete_post',$post)}}" method="post" id="deleteAction">
                                     {{ csrf_field() }}

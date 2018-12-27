@@ -1,0 +1,1 @@
+{{ strpos(url()->current(), $check) !== false ? 'active' : '' }}

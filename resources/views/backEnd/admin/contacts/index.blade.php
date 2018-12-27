@@ -24,7 +24,6 @@ Tables <i class="fa fa-angle-double-right"></i> Contact
                     <tr>
                         <th>Email</th>
                         <th>Phone Number</th>
-                        <th>Address</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -32,14 +31,15 @@ Tables <i class="fa fa-angle-double-right"></i> Contact
                     @foreach($contacts as $contact)
                         <tr>
                             <td>
-                                <a href="{{ route('show_contact', $contact) }}">{{ substr($contact->email,0,15) }}..</a>
+                                {{ strlen($contact->email) > 30 ? substr($contact->email,0,30) . '..' : $contact->email  }}
                             </td>
                             <td>
                                 {{ $contact->phone_number }}
                             </td>
-                            <td>{{ substr($contact->address,0,35) }}..</td>
-                            <td>
-                                <a class="btn btn-primary colorWhite btn_style" href="{{ route('edit_contact',$contact) }}"><i class="fa fa-pencil"></i> Edit</a>
+                            <td class="d-flex">
+                                <a class="btn btn-primary colorWhite btn_style" href="{{ route('show_contact',$contact) }}"><i class="fa fa-eye"></i> Show</a>
+
+                                <a class="btn btn-warning colorWhite btn_style" href="{{ route('edit_contact',$contact) }}"><i class="fa fa-pencil"></i> Edit</a>
 
                                 <form action="{{route('delete_contact',$contact)}}" method="post" id="deleteAction">
                                     {{ csrf_field() }}

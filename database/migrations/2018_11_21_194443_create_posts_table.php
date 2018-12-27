@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
                 $table->text('description');
                 $table->text('image');
                 $table->string('post_slug');
+                $table->integer('view_count');
                 $table->timestamps();
             });
             

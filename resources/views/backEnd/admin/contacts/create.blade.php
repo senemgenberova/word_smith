@@ -1,6 +1,6 @@
 @extends('backLayout.app')
 @section('page_title')
-Contact <i class="fa fa-angle-double-right"></i> Create
+@include('backLayout.data',['tableName' => 'contact','action' => $actions['create']] )
 @stop
 
 @section('content')
@@ -51,7 +51,7 @@ Contact <i class="fa fa-angle-double-right"></i> Create
             <div class="form-group">
                 <div class="row">
                     <div class="offset-sm-2 col-sm-5">
-                        <input class="btn btn-primary form-control" type="submit" value="Update">
+                        <input class="btn btn-primary form-control" type="submit" value="Create">
                     </div>
                 </div>
             </div>

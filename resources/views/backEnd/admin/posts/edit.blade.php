@@ -1,6 +1,6 @@
 @extends('backLayout.app')
 @section('page_title')
-Post <i class="fa fa-angle-double-right"></i> Edit
+@include('backLayout.data',['tableName' => 'post','action' => $actions['edit']] )
 @stop
 
 @section('css')
@@ -37,11 +37,7 @@ Post <i class="fa fa-angle-double-right"></i> Edit
                     <div class="col-sm-5">
                         <select name="category_id" id="category_id" class="form-control">
                             @foreach($categories as $c)
-                                <option value="{{$c->id}}">{{$c->category_name}}</option>
-
-                                @if($c == $post->category)
-                                    <option value="{{$c->id}}" selected>{{$c->category_name}}</option>
-                                @endif
+                                <option value="{{$c->id}}" {{ $c == $post->category ? 'selected' : '' }}>{{$c->category_name}}</option>
                             @endforeach
 
                         </select>
@@ -55,7 +51,8 @@ Post <i class="fa fa-angle-double-right"></i> Edit
                         <label for="image" class="control-label">Image: </label>
                     </div>
                     <div class="col-sm-5">
-                        <img src="{{ asset('/upload/post/' . $post->image)}}" class="post_img" alt="{{ $post->title }}" width="250"> 
+                        <img src="{{ asset('/upload/post/' . $post->image)}}" class="post_img mb-20" alt="{{ $post->title }}" width="250" height="250"> 
+                        
                         <input name="image" id="image" type="file" accept="image/*" >
                         
                     </div>
