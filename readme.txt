@@ -1,5 +1,1 @@
--slider-e link elave etmek;
--admini register etmek;
--about sehifesi ucun crud
--email subscribe
--embedded map
+
